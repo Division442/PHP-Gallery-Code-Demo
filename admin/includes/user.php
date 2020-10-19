@@ -2,6 +2,7 @@
 
 class User {
 
+    protected static $db_table = "users";
     public $user_id;
     public $username;
     public $first_name;
@@ -16,16 +17,7 @@ class User {
 
         global $database;
 
-        $the_result_array = self::find_this_query("SELECT * FROM users WHERE user_id = $user_id LIMIT 1");
-        
-        // Commented out code does the same thing as the return statement - good to know for code reduction.
-        // if(!empty($the_result_array)) {
-        //     $first_item = array_shift($the_result_array);
-        //     return $first_item;
-        // } else {
-        //     return false;
-        // }
-
+        $the_result_array = self::find_this_query("SELECT * FROM " . self::$db_table . " WHERE user_id = $user_id LIMIT 1");
         return !empty($the_result_array) ? array_shift($the_result_array) : false;
 
     }
@@ -51,7 +43,7 @@ class User {
         $username = $database->escape_string($username);
         $password = $database->escape_string($password);
 
-        $sql = "SELECT * FROM users WHERE username ='{$username}' AND password='{$password}' LIMIT 1";
+        $sql = "SELECT * FROM " . self::$db_table . " " . " WHERE username ='{$username}' AND password='{$password}' LIMIT 1";
         $the_result_array = self::find_this_query($sql);
         return !empty($the_result_array) ? array_shift($the_result_array) : false;
 
@@ -73,6 +65,58 @@ class User {
         $object_properties = get_object_vars($this);
         return array_key_exists($the_attribute, $object_properties);
     }
+
+    public function create() {
+        global $database;
+
+        $sql = "INSERT INTO " . self::$db_table . "(username, password, first_name, last_name)";
+        $sql .= "VALUES ('";
+        $sql .= $database->escape_string($this->username) . "', '";
+        $sql .= $database->escape_string($this->password) . "', '";
+        $sql .= $database->escape_string($this->first_name) . "', '";
+        $sql .= $database->escape_string($this->last_name) . "')";
+
+        if($database->query($sql)) {
+
+            $this->id = $database->the_insert_id();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function save() {
+        return isset($this->user_id) ? $this->update() : $this->create();
+    }
+
+    public function update_user() {
+        global $database;
+
+        $sql = "UPDATE " . self::$db_table . " SET ";
+        $sql .= "username = '" . $database->escape_string($this->username)      . "', ";
+        $sql .= "password = '" . $database->escape_string($this->password)      . "', ";
+        $sql .= "first_name = '" . $database->escape_string($this->first_name)    . "', ";
+        $sql .= "last_name = '" . $database->escape_string($this->last_name)     . "' ";
+        $sql .= " WHERE user_id = " . $database->escape_string($this->user_id);
+
+        $database->query($sql);
+
+        return (mysqli_affected_rows($database->connection) == 1) ? true : false;
+    }
+
+    // TODO: convert function to set delete date within database - NEVER remove a user completely unless for a specific reason. For that I will need a recursive delete that will purge ALL references to user.
+    public function delete_user() {
+        global $database;
+
+        $sql = "DELETE FROM " . self::$db_table . " ";
+        $sql .= " WHERE user_id = " . $database->escape_string($this->user_id);
+
+        $database->query($sql);
+
+        return (mysqli_affected_rows($database->connection) == 1) ? true : false;
+    }
+
+// End of user class - don't place functions here.    
 }
 
 

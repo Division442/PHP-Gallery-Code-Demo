@@ -7,6 +7,28 @@
             Blank Page
             <small>Subheading</small>
         </h1>
+
+        <?php 
+
+            //Test user insert and it works, far out!
+            // $user = new User();
+            // $user->username = "TheBlake";
+            // $user->password = "password";
+            // $user->first_name = "Sebastian";
+            // $user->last_name = "Foss";
+            // $user->create();
+
+            // Test user update and it works, far out!
+            // $user = User::find_user_by_id(7);
+            // $user->password = "thispassword";
+            // $user->update_user();
+
+            // Test user delete and it works, far out!
+            // $user = User::find_user_by_id(7);
+            // $user->delete_user();
+        ?>
+
+
         <ol class="breadcrumb">
             <li>
                 <i class="fa fa-dashboard"></i>  <a href="index.php">Dashboard</a>
@@ -16,25 +38,8 @@
             </li>
         </ol>
         <?php
-            
-            // $result_set = User::find_all_users();
-
-            // while($row = mysqli_fetch_array($result_set)) {
-            //     echo $row['username'] . "<br>";
-            // }
-            // echo "<br>";
-
             $found_user = User::find_user_by_id(1);
             echo $found_user->username;
-            //echo $user->username;
-
-            // $users = User::find_all_users();
-
-            // foreach($users as $user) {
-            //     echo $user->username . "<br>";
-            // }
-
-            
         ?>
     </div>
 </div>
