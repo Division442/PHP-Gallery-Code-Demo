@@ -3,6 +3,8 @@
 class User {
 
     protected static $db_table = "users";
+    protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name');
+
     public $user_id;
     public $username;
     public $first_name;
@@ -10,7 +12,7 @@ class User {
     public $password;
 
     public static function find_all_users() {
-        return self::find_this_query("SELECT * FROM users");
+        return self::find_this_query("SELECT * FROM " . self::$db_table . " ");
     }
 
     public static function find_user_by_id($user_id) {
@@ -56,8 +58,6 @@ class User {
                 $the_object->$the_attribute = $value;
             }
         }
-
-
         return $the_object;
     }
 
@@ -69,12 +69,11 @@ class User {
     public function create() {
         global $database;
 
-        $sql = "INSERT INTO " . self::$db_table . "(username, password, first_name, last_name)";
-        $sql .= "VALUES ('";
-        $sql .= $database->escape_string($this->username) . "', '";
-        $sql .= $database->escape_string($this->password) . "', '";
-        $sql .= $database->escape_string($this->first_name) . "', '";
-        $sql .= $database->escape_string($this->last_name) . "')";
+        $properties = $this->clean_properties();
+
+        $sql = "INSERT INTO " . self::$db_table . "(" . implode(",", array_keys($properties)) . ")";
+        $sql .= "VALUES ('" . implode("','", array_values($properties)) ."')";
+
 
         if($database->query($sql)) {
 
@@ -85,18 +84,51 @@ class User {
         }
     }
 
+    protected function properties() {
+        //return get_object_vars($this);
+
+        $properties = array();
+
+        foreach (self::$db_table_fields as $db_field) {
+            if(property_exists($this, $db_field)) {
+                $properties[$db_field] = $this->$db_field;
+            }
+        }
+
+        return $properties;
+    }
+
+    protected function clean_properties() {
+        global $database;
+        $clean_properties = array();
+
+        foreach ($this->properties() as $key => $value) {
+            $clean_properties[$key] = $database->escape_string($value);
+        }
+
+        return $clean_properties;
+    }
+
     public function save() {
         return isset($this->user_id) ? $this->update() : $this->create();
     }
 
     public function update_user() {
         global $database;
+        $properties = $this->clean_properties();
+        $property_pairs = array();
+
+        foreach ($properties as $key => $value) {
+            $property_pairs[] = "{$key}='{$value}'";
+        }
 
         $sql = "UPDATE " . self::$db_table . " SET ";
-        $sql .= "username = '" . $database->escape_string($this->username)      . "', ";
-        $sql .= "password = '" . $database->escape_string($this->password)      . "', ";
-        $sql .= "first_name = '" . $database->escape_string($this->first_name)    . "', ";
-        $sql .= "last_name = '" . $database->escape_string($this->last_name)     . "' ";
+        $sql .= implode(", ", $property_pairs);
+        // No longer required due to abstraction! Yah!
+        // $sql .= "username = '" . $database->escape_string($this->username)      . "', ";
+        // $sql .= "password = '" . $database->escape_string($this->password)      . "', ";
+        // $sql .= "first_name = '" . $database->escape_string($this->first_name)    . "', ";
+        // $sql .= "last_name = '" . $database->escape_string($this->last_name)     . "' ";
         $sql .= " WHERE user_id = " . $database->escape_string($this->user_id);
 
         $database->query($sql);
