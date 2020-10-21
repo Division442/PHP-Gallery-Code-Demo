@@ -13,7 +13,7 @@
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> 
         <?php
-            $found_user = User::find_user($_SESSION['user_id']);
+            $found_user = User::find_by_id($_SESSION['user_id']);
             echo $found_user->first_name;
         ?>
         <b class="caret"></b></a>

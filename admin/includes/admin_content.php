@@ -12,19 +12,19 @@
 
             //Test user insert and it works, far out!
             // $user = new User();
-            // $user->username = "TheBlake";
+            // $user->username = "JohnJohn";
             // $user->password = "password";
-            // $user->first_name = "Sebastian";
-            // $user->last_name = "Foss";
+            // $user->first_name = "John";
+            // $user->last_name = "Doe";
             // $user->create();
 
             // Test user update and it works, far out!
-            // $user = User::find_user(8);
+            // $user = User::find_by_id(8);
             // $user->password = "thispassword";
             // $user->update_user();
 
             // Test user delete and it works, far out!
-            // $user = User::find_user(7);
+            // $user = User::find_by_id(7);
             // $user->delete_user();
 
             // Find all users
@@ -38,6 +38,10 @@
             // foreach ($photos as $photo) {
             //     echo $photo->title . '<br>';
             // }
+
+            //Pull single user
+            // $user = User::find_by_id(8);
+            // echo $user->username;
 
             //Test photo insert and it works, far out!
             // $photo = new Photo();

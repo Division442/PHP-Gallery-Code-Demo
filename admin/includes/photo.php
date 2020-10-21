@@ -3,7 +3,7 @@
 class Photo extends Db_object {
 
     protected static $db_table = "photos";
-    protected static $db_table_fields = array('id', 'title', 'description', 'filename', 'type', 'size');
+    protected static $db_table_fields = array('title', 'description', 'filename', 'type', 'size');
 
     public $id;
     public $title;
@@ -63,7 +63,7 @@ class Photo extends Db_object {
 			$target_path = SITE_ROOT . DS . 'admin' . DS . $this->upload_directory . DS . $this->filename;
 
 			if(file_exists($target_path)) {
-				$this->errors[] = "The file {$this->filename} already exists";
+				$this->errors[] = "The file {$this->filename} already exists,  please select another file to upload.";
 				return false;
 			}
 
@@ -75,7 +75,7 @@ class Photo extends Db_object {
 				}
 
 			} else {
-				$this->errors[] = "the file directory probably does not have permission";
+				$this->errors[] = "The file directory permissions need to be checked for write access.";
 				return false;
 			}
 	   	}
@@ -84,8 +84,19 @@ class Photo extends Db_object {
     
     public function picture_path() {
         return $this->upload_directory.DS.$this->filename;
-    }
-    
+	}
+	
+	public function delete_photo() {
+
+		if($this->delete()) {
+			$target_path = SITE_ROOT . DS . 'admin' . DS . $this->picture_path();
+
+			return unlink($target_path) ? true : false;
+			
+		} else {
+			return false;
+		}
+	}
 
 
 }

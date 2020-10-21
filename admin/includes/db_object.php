@@ -8,11 +8,11 @@ class Db_object {
         return static::find_by_query("SELECT * FROM " . static::$db_table . " ");
     }
 
-    public static function find_user($user_id) {
+    public static function find_by_id($id) {
 
         global $database;
 
-        $the_result_array = static::find_by_query("SELECT * FROM " . static::$db_table . " WHERE user_id = $user_id LIMIT 1");
+        $the_result_array = static::find_by_query("SELECT * FROM " . static::$db_table . " WHERE id = $id LIMIT 1");
         return !empty($the_result_array) ? array_shift($the_result_array) : false;
 
     }
@@ -58,7 +58,6 @@ class Db_object {
 
 
         if($database->query($sql)) {
-
             $this->id = $database->the_insert_id();
             return true;
         } else {
@@ -93,12 +92,12 @@ class Db_object {
         return (mysqli_affected_rows($database->connection) == 1) ? true : false;
     }
 
-    // TODO: convert function to set delete date within database - NEVER remove a user completely unless for a specific reason. For that I will need a recursive delete that will purge ALL references to user.
-    public function delete_user() {
+    // TODO: convert function to set delete date within database - NEVER remove a record completely unless for a specific reason. For that I will need a recursive delete that will purge ALL references to user.
+    public function delete() {
         global $database;
 
         $sql = "DELETE FROM " . static::$db_table . " ";
-        $sql .= " WHERE user_id = " . $database->escape_string($this->user_id);
+        $sql .= " WHERE id = " . $database->escape_string($this->id);
 
         $database->query($sql);
 
