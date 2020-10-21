@@ -1,4 +1,13 @@
-<?php include("includes/header.php"); ?>
+<?php 
+    include("includes/header.php");
+
+    if(!$session->is_signed_in()) {
+        redirect("login.php");
+    }
+
+    $photos = Photo::find_all();
+    
+?>
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -14,20 +23,47 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Users
-                    <small>Subheading</small>
+                    Photos
+                    <small>Review Photos</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li>
-                        <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+                        <i class="fa fa-dashboard"></i>  <a href="index.php">Dashboard</a>
                     </li>
                     <li class="active">
-                        <i class="fa fa-file"></i> Blank Page
+                        <i class="fa fa-file"></i> All Photos
                     </li>
                 </ol>
             </div>
         </div>
         <!-- /.row -->
+
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>ID</th>
+                        <th>File Name</th>
+                        <th>Title</th>
+                        <th>Size</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($photos as $photo) : ?>
+                    <tr>
+                        <td><image style="max-width=25%" class="img-responsive" src="<?php echo $photo->picture_path(); ?>"></td>
+                        <td><?php echo $photo->id; ?></td>
+                        <td><?php echo $photo->filename; ?></td>
+                        <td><?php echo $photo->title; ?></td>
+                        <td><?php echo $photo->size; ?></td>
+                    </tr>
+
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+
+        </div>
 
         </div>
         <!-- /.container-fluid -->
