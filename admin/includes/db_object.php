@@ -69,6 +69,26 @@ class Db_object {
         return isset($this->user_id) ? $this->update() : $this->create();
     }
 
+
+    // TODO; Refactor to remove the update_user() method - this is duplicating code.
+    public function update() {
+		global $database;
+		$properties = $this->clean_properties();
+		$properties_pairs = array();
+
+		foreach ($properties as $key => $value) {
+			$properties_pairs[] = "{$key}='{$value}'";
+		}
+
+		$sql = "UPDATE  " .static::$db_table . "  SET ";
+		$sql .= implode(", ", $properties_pairs);
+		$sql .= " WHERE id= " . $database->escape_string($this->id);
+
+		$database->query($sql);
+
+		return (mysqli_affected_rows($database->connection) == 1) ? true : false;
+	}
+
     public function update_user() {
         global $database;
         $properties = $this->clean_properties();

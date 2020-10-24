@@ -12,6 +12,7 @@
         // TODO: Method to check database user
 
         $user_found = User::verify_user($username, $password);
+        print_r($user_found);
         
         if($user_found) {
             $session->login($user_found);
@@ -25,6 +26,8 @@
         $username = "";
         $password = "";
     }
+
+    
 ?>
 
 <div class="col-md-4 col-md-offset-3">
