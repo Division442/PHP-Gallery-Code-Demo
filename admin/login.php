@@ -12,10 +12,11 @@
         // TODO: Method to check database user
 
         $user_found = User::verify_user($username, $password);
-        print_r($user_found);
+        
         
         if($user_found) {
             $session->login($user_found);
+            //print_r($user_found);
             redirect('index.php');
         } else {
             $the_message = "Your password or username is incorrect.";

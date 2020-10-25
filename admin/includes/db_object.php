@@ -16,6 +16,15 @@ class Db_object {
         return !empty($the_result_array) ? array_shift($the_result_array) : false;
 
     }
+
+    public static function find_user_by_id($id) {
+
+        global $database;
+
+        $the_result_array = static::find_by_query("SELECT * FROM " . static::$db_table . " WHERE user_id = $id LIMIT 1");
+        return !empty($the_result_array) ? array_shift($the_result_array) : false;
+
+    }
     
     public static function find_by_query($sql) {
 
