@@ -270,3 +270,7 @@ ul.alert-dropdown {
    
    }
    
+   .user_image {
+       max-width: 200px;
+       height: auto;
+   }

@@ -41,7 +41,7 @@ class Session {
     }
 
     public function message($msg="") {
-        if(!emtpy($msg)) {
+        if(!empty($msg)) {
             $_SESSION['message'] = $msg;
         } else {
             return $this->message;

@@ -78,6 +78,10 @@ class Db_object {
         return isset($this->user_id) ? $this->update() : $this->create();
     }
 
+    public function save_user() {
+        return isset($this->user_id) ? $this->update_user() : $this->create();
+    }
+
 
     // TODO; Refactor to remove the update_user() method - this is duplicating code.
     public function update() {
@@ -127,6 +131,17 @@ class Db_object {
 
         $sql = "DELETE FROM " . static::$db_table . " ";
         $sql .= " WHERE id = " . $database->escape_string($this->id);
+
+        $database->query($sql);
+
+        return (mysqli_affected_rows($database->connection) == 1) ? true : false;
+    }
+
+    public function delete_user() {
+        global $database;
+
+        $sql = "DELETE FROM " . static::$db_table . " ";
+        $sql .= " WHERE user_id = " . $database->escape_string($this->user_id);
 
         $database->query($sql);
 
