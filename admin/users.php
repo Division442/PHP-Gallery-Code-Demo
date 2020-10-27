@@ -55,8 +55,8 @@
                             <td>
                                 <?php echo $user->username; ?>
                                 <div class="pictures_link">
-                                    <a href="delete_user.php?user_id=<?php echo $user->user_id; ?>">Delete</a> | 
-                                    <a href="edit_user.php?user_id=<?php echo $user->user_id; ?>">Edit</a> | 
+                                    <a href="delete_user.php?id=<?php echo $user->id; ?>">Delete</a> | 
+                                    <a href="edit_user.php?id=<?php echo $user->id; ?>">Edit</a> | 
                                     <a href="#">View</a>
                                 </div>
                             </td>

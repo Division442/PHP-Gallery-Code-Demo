@@ -21,7 +21,7 @@ class Db_object {
 
         global $database;
 
-        $the_result_array = static::find_by_query("SELECT * FROM " . static::$db_table . " WHERE user_id = $id LIMIT 1");
+        $the_result_array = static::find_by_query("SELECT * FROM " . static::$db_table . " WHERE id = $id LIMIT 1");
         return !empty($the_result_array) ? array_shift($the_result_array) : false;
 
     }
@@ -75,13 +75,8 @@ class Db_object {
     }
 
     public function save() {
-        return isset($this->user_id) ? $this->update() : $this->create();
+        return isset($this->id) ? $this->update() : $this->create();
     }
-
-    public function save_user() {
-        return isset($this->user_id) ? $this->update_user() : $this->create();
-    }
-
 
     // TODO; Refactor to remove the update_user() method - this is duplicating code.
     public function update() {
@@ -118,7 +113,7 @@ class Db_object {
         // $sql .= "password = '" . $database->escape_string($this->password)      . "', ";
         // $sql .= "first_name = '" . $database->escape_string($this->first_name)    . "', ";
         // $sql .= "last_name = '" . $database->escape_string($this->last_name)     . "' ";
-        $sql .= " WHERE user_id = " . $database->escape_string($this->user_id);
+        $sql .= " WHERE id = " . $database->escape_string($this->id);
 
         $database->query($sql);
 
@@ -141,7 +136,7 @@ class Db_object {
         global $database;
 
         $sql = "DELETE FROM " . static::$db_table . " ";
-        $sql .= " WHERE user_id = " . $database->escape_string($this->user_id);
+        $sql .= " WHERE id = " . $database->escape_string($this->id);
 
         $database->query($sql);
 

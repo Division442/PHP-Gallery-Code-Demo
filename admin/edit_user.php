@@ -4,11 +4,11 @@
 
 <?php 
 
-    if(empty($_GET['user_id'])) {
+    if(empty($_GET['id'])) {
         redirect("users.php");
     }
         
-    $user = User::find_user_by_id($_GET['user_id']);
+    $user = User::find_user_by_id($_GET['id']);
         
         
     if(isset($_POST['update'])) {
@@ -21,7 +21,7 @@
             
             if(empty($_FILES['user_image'])) {
             
-                $user->save_user();
+                $user->save();
                 redirect("users.php");
                 $session->message("The user has been updated");
                 
@@ -30,7 +30,7 @@
                 $user->set_file($_FILES['user_image']);
                 $user->upload_photo();
                 $session->message("The user {$user->username} has been added");
-                $user->save_user();
+                $user->save();
                 redirect("users.php");
             }
         
@@ -57,7 +57,7 @@
                             <small>Subheading</small>
                         </h1>
 
-                    <form action="edit_user.php?id=<?php echo $user->user_id; ?>" method="post" enctype="multipart/form-data" autocomplete="off">
+                    <form action="edit_user.php?id=<?php echo $user->id; ?>" method="post" enctype="multipart/form-data" autocomplete="off">
 
                         <div>
                            <div class="form-group">
@@ -86,7 +86,7 @@
 
                             <div class="form-group">
                                 <input type="submit" value="Edit User" name="update" class="btn btn-primary pull-right" >
-                                <a href="delete_user.php?user_id=<?php echo $user->user_id; ?>" class="btn btn-primary pull-right">Delete</a>
+                                <a href="delete_user.php?id=<?php echo $user->id; ?>" class="btn btn-primary pull-right">Delete</a>
                             </div>
                         </div>
                 </form>
