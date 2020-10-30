@@ -17,6 +17,7 @@ class Db_object {
 
     }
 
+    // TODO: This method can be deleted, used above now. Check to make sure nothing is using this method
     public static function find_user_by_id($id) {
 
         global $database;

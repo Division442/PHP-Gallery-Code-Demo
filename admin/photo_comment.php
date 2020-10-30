@@ -5,8 +5,12 @@
         redirect("login.php");
     }
 
-    $comments = Comment::find_all();
-
+    if(empty($_GET['id'])) {
+        redirect("photos.php");
+    }
+    
+    $comment = Comment::find_the_comments($_GET['id']);
+    $photo = Photo::find_by_id($_GET['id']);
     
 ?>
 
@@ -44,23 +48,27 @@
                     <thead>
                         <tr>
                             <th></th>
+                            <th>Photo</th>
                             <th>Author</th>
                             <th>Comment</th>
                             <th>Created</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($comments as $comment) : ?>
+                        <?php foreach($comment as $comment) : ?>
                         <tr>
+                            <td><image style="max-width: 25%; height: auto;" class="img-responsive img-rounded" src="<?php echo $photo->picture_path(); ?>"></td>
                             <td><?php echo $comment->id; ?></td>
                             <td>
                                 <?php echo $comment->author; ?>
                                 <div class="pictures_link">
-                                    <a href="delete_comment.php?id=<?php echo $comment->id; ?>">Delete</a>
+                                    <a href="delete_comment_photo.php?id=<?php echo $comment->id; ?>">Delete</a>
                                 </div>
                             </td>
                             <td><?php echo $comment->body; ?></td>
                             <td><?php echo $comment->created; ?></td>
+                            
                         </tr>
 
                         <?php endforeach ?>
