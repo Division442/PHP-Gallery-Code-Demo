@@ -25,7 +25,7 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">
                         Comments
-                        <small><a href="add_user.php" class="btn btn-primary">Add Comment</a></small>
+                        <small>Photo Comments</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li>

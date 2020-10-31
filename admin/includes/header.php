@@ -27,11 +27,36 @@
 
     <!-- Script for TinyMCE -->
     <script src="https://cdn.tiny.cloud/1/vknehduute7q9lwsysx2pcdx1p1vt4ajgz9k0le0zpdvjzgg/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script>
         tinymce.init({
             selector: '#mytextarea'
         });
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Work',     11],
+            ['Eat',      2],
+            ['Commute',  2],
+            ['Watch TV', 2],
+            ['Sleep',    7]
+            ]);
+
+            var options = {
+            title: 'My Daily Activities'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+
     </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

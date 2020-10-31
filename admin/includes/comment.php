@@ -3,7 +3,8 @@
 class Comment extends Db_object {
 
     protected static $db_table = "comments";
-    protected static $db_table_fields = array('photo_id', 'author', 'body', 'created');
+    protected static $db_table_id = "photo_id";
+    protected static $db_table_fields = array('photo_id', 'author', 'body');
 
     public $id;
     public $photo_id;
@@ -31,7 +32,7 @@ class Comment extends Db_object {
         global $database;
 
         $sql = "SELECT * FROM " . self::$db_table;
-        $sql .= " WHERE photo_id = " . $database->escape_string($photo_id);
+        $sql .= " WHERE " . self::$db_table_id .  " = " . $database->escape_string($photo_id);
         
         return self::find_by_query($sql);
     } 
