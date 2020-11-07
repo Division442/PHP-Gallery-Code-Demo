@@ -56,7 +56,7 @@
                             <td>
                                 <image style="max-width: 25%; height: auto;" class="img-responsive img-rounded" src="<?php echo $photo->picture_path(); ?>">
                                 <div class="pictures_link">
-                                    <a href="delete_photo.php?id=<?php echo $photo->id; ?>">Delete</a> | 
+                                    <a href="delete_photo.php?id=<?php echo $photo->id; ?>" class="delete_link">Delete</a> | 
                                     <a href="edit_photo.php?id=<?php echo $photo->id; ?>">Edit</a> | 
                                     <a href="../photo.php?id=<?php echo $photo->id; ?>">View</a> | 
                                     <a href="photo_comment.php?id=<?php echo $photo->id; ?>">View Comments </a> | 

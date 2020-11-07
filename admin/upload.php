@@ -7,7 +7,7 @@
     }
 
     $message = "";
-    if(isset($_POST['submit'])) { 
+    if(isset($_FILES['file'])) { 
         $photo = new Photo();
         $photo->title = $_POST['title'];
         $photo->set_file($_FILES['file']);
@@ -55,23 +55,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <?php echo "<h2>" . $message . "</h2>" ?>
-                    <form action="upload.php" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <input type="text" name="title" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <input type="file" name="file">
-                        </div>
-
-                        <div class="form-group">
-                            <input type="submit" name="submit" value="Submit" class="btn btn-sm">
-                        </div>
-
-
-                    </form>
-                </div>
-            
-            
+                    <form action="upload.php" class=dropzone></form>
+                </div>            
             </div>
             <!-- END: Body content -->
 

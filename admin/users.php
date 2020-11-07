@@ -34,6 +34,10 @@
                             <i class="fa fa-file"></i> All Users
                         </li>
                     </ol>
+
+                    <p class="bg-success">
+                            <?php echo $message?>
+                        </p>
                 </div>
             </div>
             <!-- /.row -->

@@ -98,6 +98,17 @@ class Photo extends Db_object {
 		} else {
 			return false;
 		}
+    }
+    
+    public static function display_sidebar_data($photo_id) {
+		$photo = Photo::find_by_id($photo_id);
+
+		$output = "<p><strong>Filename:</strong> {$photo->filename}</p>";
+		$output .= "<p><strong>Type:</strong> {$photo->type}</p>";
+		$output .= "<p><strong>Size:</strong> {$photo->size}</p>";
+
+		echo $output;
+
 	}
 
 
