@@ -24,7 +24,7 @@ $(document).ready(function() {
         photo_id = $(this).attr("data")
 
         $.ajax({
-            url: "includes/ajax_code.php",
+            url: "inc/ajax_code.php",
             data:{photo_id:photo_id},
             type: "POST",
             success:function(data) {
@@ -38,7 +38,7 @@ $(document).ready(function() {
 
     $("#set_user_image").click(function(){
         $.ajax({
-            url: "includes/ajax_code.php",
+            url: "inc/ajax_code.php",
             data: {image_name: image_name, user_id: user_id},
             type: "POST",
             success:function(data) {

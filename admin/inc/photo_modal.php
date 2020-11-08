@@ -1,10 +1,3 @@
-<?php
-
-    require_once("init.php");
-    $photos = Photo::find_all();
-
-?>
-
 <div class="modal fade" id="photo-modal">
     <div class="modal-dialog">
         <div class="modal-content">

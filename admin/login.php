@@ -1,5 +1,5 @@
 <?php
-    require_once("includes/header.php");
+    require_once("inc/header.php");
     
     if($session->is_signed_in()) {
         redirect('index.php');
@@ -52,5 +52,5 @@
 
 
 <?php
-    require_once("includes/footer.php");
+    require_once("inc/footer.php");
 ?>

@@ -1,5 +1,5 @@
 <?php 
-    require_once("admin/includes/init.php"); 
+    require_once("admin/init.php"); 
 ?>
 
 <!DOCTYPE html>

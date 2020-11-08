@@ -1,5 +1,5 @@
 <?php 
-        include("includes/header.php");
+        include("inc/header.php");
         //$photos = Photo::find_all();
 
         // Pagination
@@ -61,4 +61,4 @@
 </div>
 <!-- /.row -->
 
-<?php include("includes/footer.php"); ?>
+<?php include("inc/footer.php"); ?>

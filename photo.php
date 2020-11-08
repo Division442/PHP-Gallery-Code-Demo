@@ -1,7 +1,7 @@
 <?php 
-    include("includes/header.php");
+    include "inc/header.php";
 
-    require_once("admin/includes/init.php");
+    require_once("admin/init.php");
 
     if(empty($_GET['id'])) {
         redirect("index.php");
@@ -104,4 +104,4 @@
         </div>
         <!-- /.row -->
 
-<?php include("includes/footer.php"); ?>
+<?php include "inc/footer.php"; ?>
