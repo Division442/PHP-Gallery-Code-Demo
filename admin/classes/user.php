@@ -3,19 +3,23 @@
 class User extends Db_object {
 
     protected static $db_table = "users";
-    protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name', 'user_image');
+    protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name', 'user_level', 'user_image', 'created', 'description');
 
     public $id;
     public $username;
     public $first_name;
     public $last_name;
+    public $user_level;
     public $password;
     public $user_image;
-    public $upload_directory = "images";
-    public $image_placeholder = "https://via.placeholder.com/150";
+    public $created;
+    public $decrypted_password;
+    public $description;
+    private static $upload_directory = "images";
+    private static $image_placeholder = "https://via.placeholder.com/150";
 
     public function image_path_and_placeholder() {
-        return empty($this->user_image) ? $this->image_placeholder : $this->upload_directory.DS.$this->user_image;
+        return empty($this->user_image) ? self::$image_placeholder : self::$upload_directory.DS.$this->user_image;
     }
 
 
@@ -24,12 +28,28 @@ class User extends Db_object {
         global $database;
 
         $username = $database->escape_string($username);
-        $password = $database->escape_string($password);
+        $user_password = $database->escape_string($password);
 
-        $sql = "SELECT * FROM " . self::$db_table . " " . " WHERE username ='{$username}' AND password='{$password}' LIMIT 1";
-        $the_result_array = self::find_by_query($sql);
-        return !empty($the_result_array) ? array_shift($the_result_array) : false;
+        // First, pull password from database
+        $set_encrypted_password = self::get_encrypted_password($username);
+        foreach($set_encrypted_password as $user_query) {
+            if($user_query) {
+                $encrypted_password = $user_query;
+            }
+        }
 
+        if (password_verify($user_password, $encrypted_password)) {
+            $password = $encrypted_password;
+            $sql = "SELECT * FROM " . self::$db_table . " " . " WHERE username ='{$username}' AND password='{$password}' LIMIT 1";
+            $the_result_array = self::find_by_query($sql);
+            return !empty($the_result_array) ? array_shift($the_result_array) : false;
+        }
+    }
+
+    private static function get_encrypted_password($username) {
+        $sql_password = "SELECT password FROM " . self::$db_table . " " . " WHERE username ='{$username}' AND deleted is NULL";
+        $the_password_result_array = self::find_by_query($sql_password);
+        return !empty($the_password_result_array) ? array_shift($the_password_result_array) : false;
     }
 
     public function ajax_save_user_image($user_image, $user_id) {
@@ -52,7 +72,7 @@ class User extends Db_object {
 
     public function delete_user_photo() {
 
-		if($this->delete_user()) {
+		if($this->delete()) {
 			$target_path = SITE_ROOT . DS . 'admin' . DS . $this->image_path_and_placeholder();
 
 			return unlink($target_path) ? true : false;

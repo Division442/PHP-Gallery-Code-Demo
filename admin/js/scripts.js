@@ -24,7 +24,7 @@ $(document).ready(function() {
         photo_id = $(this).attr("data")
 
         $.ajax({
-            url: "inc/ajax_code.php",
+            url: "inc/inc_ajax_code.php",
             data:{photo_id:photo_id},
             type: "POST",
             success:function(data) {
@@ -38,7 +38,7 @@ $(document).ready(function() {
 
     $("#set_user_image").click(function(){
         $.ajax({
-            url: "inc/ajax_code.php",
+            url: "inc/inc_ajax_code.php",
             data: {image_name: image_name, user_id: user_id},
             type: "POST",
             success:function(data) {
@@ -50,7 +50,7 @@ $(document).ready(function() {
     })
 
 })
-
+/* END: jQuery Code */
 // Edit photo sidebar
 $(".info-box-header").click(function() {
     $(".inside").slideToggle("slow")
@@ -65,3 +65,12 @@ tinymce.init({
 $(".delete_link").click(function() {
     return confirm("Are you sure you want to delete the selected item.");
 })
+
+function myFunction() {
+  var x = document.getElementById("myInput");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}

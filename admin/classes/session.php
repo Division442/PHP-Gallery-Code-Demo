@@ -21,6 +21,7 @@ class Session {
     public function login($user) {
         if($user) {
             $this->id = $_SESSION['id'] = $user->id;
+            $this->name = $_SESSION['name'] = $user->first_name . " " . $user->last_name;
             $this->signed_in = true;
         }
     }
@@ -28,6 +29,7 @@ class Session {
     public function logout() {
         
         unset($_SESSION['id']);
+        unset($user->name);
         unset($user->id);
         $this->signed_in = false;
     }

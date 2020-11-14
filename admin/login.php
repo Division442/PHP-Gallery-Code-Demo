@@ -1,5 +1,5 @@
 <?php
-    require_once("inc/header.php");
+    require_once("inc/inc_header.php");
     
     if($session->is_signed_in()) {
         redirect('index.php');
@@ -9,14 +9,10 @@
         $username = trim($_POST['username']); 
         $password = trim($_POST['password']);
 
-        // TODO: Method to check database user
-
-        $user_found = User::verify_user($username, $password);
-        
+        $user_found = User::verify_user($username, $password);        
         
         if($user_found) {
             $session->login($user_found);
-            //print_r($user_found);
             redirect('index.php');
         } else {
             $the_message = "Your password or username is incorrect.";
@@ -27,8 +23,6 @@
         $username = "";
         $password = "";
     }
-
-    
 ?>
 
 <div class="col-md-4 col-md-offset-3">
@@ -50,7 +44,6 @@
     </form>
 </div>
 
-
 <?php
-    require_once("inc/footer.php");
+    require_once("inc/inc_footer.php");
 ?>

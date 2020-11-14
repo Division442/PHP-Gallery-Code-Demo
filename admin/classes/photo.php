@@ -3,16 +3,19 @@
 class Photo extends Db_object {
 
     protected static $db_table = "photos";
-    protected static $db_table_fields = array('title', 'description', 'filename', 'type', 'size', 'caption', 'alt_text');
+    protected static $db_table_fields = array('title', 'description', 'filename', 'type', 'size', 'caption', 'alt_text', 'user_id', 'created', 'original_file_name');
 
     public $id;
     public $title;
     public $description;
     public $filename;
+    public $original_file_name;
     public $type;
 	public $size;
 	public $caption;
-	public $alt_text;
+    public $alt_text;
+    public $user_id;
+    public $created;
 
     public $tmp_path;
     public $upload_directory = "images";
@@ -40,13 +43,19 @@ class Photo extends Db_object {
 		    return false;
 
 		} else {
-            $this->filename =  basename($file['name']);
+
+            $file_name_holder = pathinfo(basename($file['name']));
+            $seoFileName = $this->seoUrl($file_name_holder['filename'] . '-' . uniqid() . '.' . $file_name_holder['extension']);
+
+            $this->filename = $seoFileName;
+            $this->original_file_name = basename($file['name']);
             $this->tmp_path = $file['tmp_name'];
             $this->type     = $file['type'];
             $this->size     = $file['size'];
 		}
 
     }
+
 
 	public function save() {
 
@@ -58,7 +67,7 @@ class Photo extends Db_object {
 			}
 
 			if(empty($this->filename) || empty($this->tmp_path)){
-				$this->errors[] = "the file was not available";
+				$this->errors[] = "The file was not available.";
 				return false;
 			}
 
@@ -91,9 +100,10 @@ class Photo extends Db_object {
 	public function delete_photo() {
 
 		if($this->delete()) {
-			$target_path = SITE_ROOT . DS . 'admin' . DS . $this->picture_path();
+			//$target_path = SITE_ROOT . DS . 'admin' . DS . $this->picture_path();
 
-			return unlink($target_path) ? true : false;
+            //return unlink($target_path) ? true : false;
+            return true;
 			
 		} else {
 			return false;
@@ -101,6 +111,7 @@ class Photo extends Db_object {
     }
     
     public static function display_sidebar_data($photo_id) {
+
 		$photo = Photo::find_by_id($photo_id);
 
 		$output = "<p><strong>Filename:</strong> {$photo->filename}</p>";
@@ -109,7 +120,21 @@ class Photo extends Db_object {
 
 		echo $output;
 
-	}
+    }
+    
+    public static function seoUrl($string) {
+
+        //Lower case everything
+        $string = strtolower($string);
+        //Make alphanumeric (removes all other characters)
+        $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+        //Clean up multiple dashes or whitespaces
+        $string = preg_replace("/[\s-]+/", " ", $string);
+        //Convert whitespaces and underscore to dash
+        $string = preg_replace("/[\s_]/", "-", $string);
+
+        return $string;
+    }
 
 
 }

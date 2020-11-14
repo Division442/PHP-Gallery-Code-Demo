@@ -5,24 +5,18 @@ class Db_object {
     protected static $db_table = "users";
 
     public static function find_all() {
-        return static::find_by_query("SELECT * FROM " . static::$db_table . " ");
+        return static::find_by_query("SELECT * FROM " . static::$db_table . " WHERE deleted is NULL");
+    }
+
+    public static function find_all_user_photos() {
+        return static::find_by_query("SELECT * FROM " . static::$db_table . " WHERE user_id = {$_SESSION["id"]} and deleted is NULL");
     }
 
     public static function find_by_id($id) {
 
         global $database;
 
-        $the_result_array = static::find_by_query("SELECT * FROM " . static::$db_table . " WHERE id = $id LIMIT 1");
-        return !empty($the_result_array) ? array_shift($the_result_array) : false;
-
-    }
-
-    // TODO: This method can be deleted, used above now. Check to make sure nothing is using this method
-    public static function find_user_by_id($id) {
-
-        global $database;
-
-        $the_result_array = static::find_by_query("SELECT * FROM " . static::$db_table . " WHERE id = $id LIMIT 1");
+        $the_result_array = static::find_by_query("SELECT * FROM " . static::$db_table . " WHERE id = {$id} and deleted is NULL");
         return !empty($the_result_array) ? array_shift($the_result_array) : false;
 
     }
@@ -79,7 +73,6 @@ class Db_object {
         return isset($this->id) ? $this->update() : $this->create();
     }
 
-    // TODO; Refactor to remove the update_user() method - this is duplicating code.
     public function update() {
 		global $database;
 		$properties = $this->clean_properties();
@@ -98,45 +91,11 @@ class Db_object {
 		return (mysqli_affected_rows($database->connection) == 1) ? true : false;
 	}
 
-    public function update_user() {
-        global $database;
-        $properties = $this->clean_properties();
-        $property_pairs = array();
-
-        foreach ($properties as $key => $value) {
-            $property_pairs[] = "{$key}='{$value}'";
-        }
-
-        $sql = "UPDATE " . static::$db_table . " SET ";
-        $sql .= implode(", ", $property_pairs);
-        // No longer required due to abstraction! Yah!
-        // $sql .= "username = '" . $database->escape_string($this->username)      . "', ";
-        // $sql .= "password = '" . $database->escape_string($this->password)      . "', ";
-        // $sql .= "first_name = '" . $database->escape_string($this->first_name)    . "', ";
-        // $sql .= "last_name = '" . $database->escape_string($this->last_name)     . "' ";
-        $sql .= " WHERE id = " . $database->escape_string($this->id);
-
-        $database->query($sql);
-
-        return (mysqli_affected_rows($database->connection) == 1) ? true : false;
-    }
-
     // TODO: convert function to set delete date within database - NEVER remove a record completely unless for a specific reason. For that I will need a recursive delete that will purge ALL references to user.
     public function delete() {
         global $database;
 
-        $sql = "DELETE FROM " . static::$db_table . " ";
-        $sql .= " WHERE id = " . $database->escape_string($this->id);
-
-        $database->query($sql);
-
-        return (mysqli_affected_rows($database->connection) == 1) ? true : false;
-    }
-
-    public function delete_user() {
-        global $database;
-
-        $sql = "DELETE FROM " . static::$db_table . " ";
+        $sql = "UPDATE " .static::$db_table . " SET deleted = " . "'" . date('Y-m-d H:i:s') . "'";
         $sql .= " WHERE id = " . $database->escape_string($this->id);
 
         $database->query($sql);
