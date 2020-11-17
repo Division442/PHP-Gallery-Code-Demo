@@ -1,12 +1,10 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+<nav class="navbar navbar-expand-lg bg-primary navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
             <a class="navbar-brand" href="javascript:;">
                 
-            <?php
-                echo "Welcome back" . " " . $_SESSION['name']
-            ?>
+            <?php echo "Welcome back" . " " . $_SESSION['name'] ?>
             </a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +36,7 @@
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="index.php?mode=logout">Log out</a>
+                  <a class="dropdown-item" href="../index.php">Home Page</a>
                 </div>
               </li>
             </ul>

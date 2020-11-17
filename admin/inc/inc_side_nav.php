@@ -5,39 +5,47 @@
         Tip 2: you can also add an image using data-image tag
     -->
     <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">Gallery Code Demo</a>
+        <a href="index.php" class="simple-text logo-normal">Gallery Code Demo</a>
     </div>
+
+    <!-- Theme is overiding the jQuery toggle class - this is a workaround and pre jquery solution -->
     <div class="sidebar-wrapper">
         <ul class="nav">
-            <li class="nav-item active">
-            <a class="nav-link" href="index.php">
-                <i class="material-icons">dashboard</i>
-                <p>Dashboard</p>
-            </a>
+            <li class="nav-item<?php if ($_GET["mode"] == "") { echo " active"; } ?>">
+                <a class="nav-link" href="index.php">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="index.php?mode=users">
-                <i class="material-icons">person</i>
-                <p>Users</p>
-            </a>
+            <li class="nav-item<?php if ($_GET["mode"] == "users") { echo " active"; } ?>">
+                <a class="nav-link" href="index.php?mode=users">
+                    <i class="material-icons">person</i>
+                    <p>Users</p>
+                </a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="index.php?mode=upload_photo">
-                <i class="material-icons">content_paste</i>
-                <p>Upload</p>
-            </a>
+            <li class="nav-item<?php if ($_GET["mode"] == "add_user") { echo " active"; } ?>">
+                <a class="nav-link" href="index.php?mode=add_user">
+                    <i class="material-icons">person_add</i>
+                    <p>Add User</p>
+                </a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="index.php?mode=comments">
-                <i class="material-icons">library_books</i>
-                <p>Comments</p>
-            </a>
+            <li class="nav-item<?php if ($_GET["mode"] == "upload_photo") { echo " active"; } ?>">
+                <a class="nav-link" href="index.php?mode=upload_photo">
+                    <i class="material-icons">backup</i>
+                    <p>Upload</p>
+                </a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="index.php?mode=photos">
-                <i class="material-icons">bubble_chart</i>
-                <p>Photos</p>
-            </a>
+            <li class="nav-item<?php if ($_GET["mode"] == "photos") { echo " active"; } ?>">
+                <a class="nav-link" href="index.php?mode=photos">
+                    <i class="material-icons">monochrome_photos</i>
+                    <p>Photos</p>
+                </a>
+            </li>
+            <li class="nav-item<?php if ($_GET["mode"] == "comments" || $_GET["mode"] == "photo_comments") { echo " active"; } ?>">
+                <a class="nav-link" href="index.php?mode=comments">
+                    <i class="material-icons">library_books</i>
+                    <p>Comments</p>
+                </a>
             </li>
         </ul>
     </div>

@@ -4,7 +4,7 @@ class Comment extends Db_object {
 
     protected static $db_table = "comments";
     protected static $db_table_id = "photo_id";
-    protected static $db_table_fields = array('photo_id', 'author', 'body');
+    protected static $db_table_fields = array('photo_id', 'author', 'body', 'created');
 
     public $id;
     public $photo_id;
@@ -12,7 +12,7 @@ class Comment extends Db_object {
     public $body;
     public $created;
 
-    public static function create_comment($photo_id, $author, $body) {
+    public static function create_comment($photo_id, $author, $body, $created) {
         if(!empty($photo_id) && !empty($author) && !empty($body)) {
             
             $comment = new Comment();
@@ -20,6 +20,7 @@ class Comment extends Db_object {
             $comment->photo_id  = (int) $photo_id;
             $comment->author    = (string) $author;
             $comment->body      = (string) $body;
+            $comment->created   = (string) $created;
 
             return $comment;
         } else {
@@ -32,8 +33,7 @@ class Comment extends Db_object {
         global $database;
 
         $sql = "SELECT * FROM " . self::$db_table;
-        $sql .= " WHERE " . self::$db_table_id .  " = " . $database->escape_string($photo_id);
-        
+        $sql .= " WHERE " . self::$db_table_id .  " = " . $database->escape_string($photo_id) . " " . "and deleted is NULL";
         return self::find_by_query($sql);
     } 
 

@@ -5,11 +5,18 @@
             <div class="card-header card-header-primary">
                 <h4 class="card-title ">Photos</h4>
                 <p class="card-category"> Displaying all photos that you uploaded.</p>
-                <p class="bg-success">
-                    <?php echo $message?>
-                </p>
             </div>
                 <div class="card-body">
+                    <?php 
+                        if($message) {
+                            echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
+                            echo "<strong>{$message}</strong>";
+                            echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>";
+                            echo "<span aria-hidden='true'>&times;</span>";
+                            echo "</button>";
+                            echo "</div>";
+                        }
+                    ?>
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -21,20 +28,14 @@
                                     <th>Original File Name</th>
                                     <th>Size</th>
                                     <th>Comments</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach($photos as $photo) : ?>
                                 <tr>
                                     <td width="300px">
-                                        <image style="max-width: 75%; height: auto;" class="img-responsive img-rounded" src="<?php echo $photo->picture_path(); ?>">
-                                        <div class="pictures_link">
-                                            <a href="index.php?mode=delete_photo&id=<?php echo $photo->id; ?>" class="delete_link">Delete</a> | 
-                                            <a href="index.php?mode=edit_photo&id=<?php echo $photo->id; ?>">Edit</a> | 
-                                            <a href="../photo.php?id=<?php echo $photo->id; ?>">View</a> | 
-                                            <a href="index.php?mode=photo_comments&id=<?php echo $photo->id; ?>">View Comments </a>
-                                        </div>
-                                    
+                                        <image class="img-fluid img-rounded" src="<?php echo $photo->picture_path(); ?>">
                                     </td>
                                     <td><?php echo $photo->id; ?></td>
                                     <td><?php echo $photo->title; ?></td>
@@ -46,9 +47,16 @@
                                         <?php 
                                             $comments = Comment::find_the_comments($photo->id);
                                             echo count($comments);
-
                                         ?>
                                         </a>
+                                    </td>
+                                    <td>
+                                        <div class="pictures_link">
+                                            <a href="index.php?mode=delete_photo&id=<?php echo $photo->id; ?>"><i class="material-icons delete_link">delete</i></a> | 
+                                            <a href="index.php?mode=edit_photo&id=<?php echo $photo->id; ?>"><i class="material-icons">create</i></a> | 
+                                            <a href="../photo.php?id=<?php echo $photo->id; ?>"><i class="material-icons">preview</i></a> | 
+                                            <a href="index.php?mode=photo_comments&id=<?php echo $photo->id; ?>"><i class="material-icons">speaker_notes</i></a>
+                                        </div>
                                     </td>
                                 </tr>
 

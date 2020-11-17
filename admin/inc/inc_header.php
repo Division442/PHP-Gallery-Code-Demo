@@ -21,11 +21,10 @@
     <title>Gallery Admin Code Demo</title>
     <link href="css/material-dashboard.css" rel="stylesheet">
     <link href="css/dropzone.css" rel="stylesheet">
+    <!-- Custom styles specific to app -->
     <link href="css/styles.css" rel="stylesheet">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-
-    <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

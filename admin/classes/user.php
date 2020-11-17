@@ -3,7 +3,7 @@
 class User extends Db_object {
 
     protected static $db_table = "users";
-    protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name', 'user_level', 'user_image', 'created', 'description');
+    protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name', 'user_level', 'user_image', 'created', 'description', 'bio');
 
     public $id;
     public $username;
@@ -15,6 +15,7 @@ class User extends Db_object {
     public $created;
     public $decrypted_password;
     public $description;
+    public $bio;
     private static $upload_directory = "images";
     private static $image_placeholder = "https://via.placeholder.com/150";
 
@@ -102,6 +103,7 @@ class User extends Db_object {
 
     }
 
+
     public function upload_photo() {
 
         if(!empty($this->errors)) {
@@ -113,7 +115,7 @@ class User extends Db_object {
             return false;
         }
 
-        $target_path = SITE_ROOT . DS . 'admin' . DS . $this->upload_directory . DS . $this->user_image;
+        $target_path = SITE_ROOT . DS . 'admin' . DS . self::$upload_directory . DS . $this->user_image;
 
         if(file_exists($target_path)) {
             $this->errors[] = "The file {$this->user_image} already exists,  please select another file to upload.";

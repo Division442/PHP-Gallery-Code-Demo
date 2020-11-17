@@ -25,7 +25,7 @@
                         <input type="text" name="alt_text" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="description">Description</label>
+                        <label for="description">Description</label><br>
                         <textarea name="description" id="mytextarea" cols="30" rows="10" class="form-control"></textarea>
                     </div>
                 </form>

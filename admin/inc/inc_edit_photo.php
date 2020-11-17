@@ -4,12 +4,20 @@
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title ">Edit Photo</h4>
-                <p class="card-category"> Place photo title here.</p>
-                <p class="bg-success">
-                    <?php echo $message?>
-                </p>
+                <p class="card-category"> <?php echo $photo->title; ?></p>
             </div>
             <div class="card-body">
+            <div class="card-body">
+                    <?php 
+                        if($message) {
+                            echo "<div class='alert alert-info alert-dismissible fade show' role='alert'>";
+                            echo "<strong>{$session->message}</strong>";
+                            echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>";
+                            echo "<span aria-hidden='true'>&times;</span>";
+                            echo "</button>";
+                            echo "</div>";
+                        }
+                    ?>
                 <form action="index.php?mode=edit_photo&id=<?php echo $photo->id; ?>" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-8">

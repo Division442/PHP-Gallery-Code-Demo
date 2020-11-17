@@ -6,6 +6,11 @@
     }
 
     $mode = $_GET["mode"] ?? "";
+    
+    // Clear message sessions to ensure it doesn't carry over into other pages
+    if(!isset($session->message)) {
+        unset($_SESSION['message']);
+    }
 ?>
 
 <div class="wrapper ">
@@ -35,44 +40,10 @@
                                 include "inc/inc_comments.php";
                             break;
 
-                            // Delete comment
-                            case "delete_comment":
-                                if(empty($_GET['id'])) {
-                                    redirect('inc_comments.php');
-                                } else {
-                                    $comment = Comment::find_by_id($_GET['id']);
-                            
-                                    if($comment) {
-                                        $comment->delete();
-                                        $message = "Comment successfully deleted.";
-                                        redirect("index.php?mode=comments");
-                                    } else {
-                                        $message = "There was a problem when deleting your comment.";
-                                        redirect("index.php?mode=comments");
-                                    }
-                                }
-                            break;
-
-                            // Delete photo comments
-                            case "delete_photo_comments":
-                                if(empty($_GET['id'])) {
-                                    redirect('inc_comments.php');
-                                } else {
-                                    $comment = Comment::find_by_id($_GET['id']);
-                            
-                                    if($comment) {
-                                        $comment->delete();
-                                        redirect("index.php?mode=photo_comments&id{$comment->photo_id}");
-                                    } else {
-                                        redirect("index.php?mode=photo_comments&id{$comment->photo_id}");
-                                    }
-                                }
-                            break;
-
                             // View photo comments
                             case "photo_comments":
                                 if(empty($_GET['id'])) {
-                                    redirect("inc_photos.php");
+                                    redirect("index.php");
                                 }
                                 
                                 $comment = Comment::find_the_comments($_GET['id']);
@@ -84,6 +55,42 @@
                             case "photos":
                                 $photos = Photo::find_all_user_photos();
                                 include "inc/inc_photos.php";
+                            break;
+                            
+                            // Delete comment
+                            case "delete_comment":
+                                if(empty($_GET['id'])) {
+                                    redirect('index.php?mode=comments');
+                                } else {
+                                    $comment = Comment::find_by_id($_GET['id']);
+                            
+                                    if($comment) {
+                                        $comment->delete();
+                                        $session->message("Comment successfully deleted.");
+                                        redirect("index.php?mode=comments");
+                                    } else {
+                                        $session->message("There was a problem when deleting your comment.");
+                                        redirect("index.php?mode=comments");
+                                    }
+                                }
+                            break;
+
+                            // Delete photo comments
+                            case "delete_photo_comments":
+                                if(empty($_GET['id'])) {
+                                    redirect('index.php?mode=comments');
+                                } else {
+                                    $comment = Comment::find_by_id($_GET['id']);
+                            
+                                    if($comment) {
+                                        $comment->delete();
+                                        $session->message("Comment successfully deleted.");
+                                        redirect("index.php?mode=photo_comments&id={$comment->photo_id}");
+                                    } else {
+                                        $session->message("An error occurred and the comment was not deleted.");
+                                        redirect("index.php?mode=photo_comments&id={$comment->photo_id}");
+                                    }
+                                }
                             break;
 
                             // Edit User
@@ -98,10 +105,14 @@
                                 if(isset($_POST['update'])) {
                                     
                                     if($user) {
-                                        $user->username = $_POST['username'];
-                                        $user->first_name =$_POST['first_name'];
-                                        $user->last_name =$_POST['last_name'];
-                                        $user->password =$_POST['password'];
+                                        $user->username     = $_POST['username'];
+                                        $user->first_name   = $_POST['first_name'];
+                                        $user->last_name    = $_POST['last_name'];
+                                        $user->user_level   = $_POST['user_level'];
+
+                                        if(!empty($_POST['password'])) {
+                                            $user->password     = password_hash($_POST['username'], PASSWORD_DEFAULT);
+                                        }
                                         
                                         if(empty($_FILES['user_image'])) {
                                         
@@ -134,14 +145,15 @@
                                     if($user) {
                                         // Encrypt password before inserting into database
                                         $user->username     = $_POST['username'];
-                                        $user->first_name   =$_POST['first_name'];
-                                        $user->last_name    =$_POST['last_name'];
+                                        $user->first_name   = $_POST['first_name'];
+                                        $user->last_name    = $_POST['last_name'];
+                                        $user->user_level   = $_POST['user_level'];
                                         $user->password     = password_hash($_POST['username'], PASSWORD_DEFAULT);
                                         $user->created      = date("Y-m-d H:i:s");
                             
                                         $user->set_file($_FILES['user_image']);
                                         $user->upload_photo();
-                                        $session->message("The user {$user->username} has been added");
+                                        $session->message("The user <strong>{$user->username}</strong> has been added");
                                         $user->save();
                                         redirect("index.php?mode=users");
                                     }
@@ -172,13 +184,13 @@
                                 $message = "";
                                 if(isset($_FILES['file'])) { 
                                     $photo = new Photo();
-                                    $photo->title = $_POST['title'];
-                                    $photo->caption = $_POST['caption'];
-                                    $photo->alt_text = $_POST['alt_text'];
+                                    $photo->title       = $_POST['title'];
+                                    $photo->caption     = $_POST['caption'];
+                                    $photo->alt_text    = $_POST['alt_text'];
                                     $photo->description = $_POST['description'];
                                     $photo->set_file($_FILES['file']);
-                                    $photo->user_id = $_POST['user_id'];
-                                    $photo->created = date("Y-m-d H:i:s");
+                                    $photo->user_id     = $_POST['user_id'];
+                                    $photo->created     = date("Y-m-d H:i:s");
                             
                                     if($photo->save()) {
                                         $session->message("Photo uploaded successfully.");
@@ -201,8 +213,10 @@
                             
                                 if($photo) {
                                     $photo->delete_photo();
+                                    $session->message("The selected photo has been successfully deleted.");
                                     redirect("index.php?mode=photos");
                                 } else {
+                                    $session->message("There was an error when deleting the selected photo, please try again or contact technical support.");
                                     redirect("index.php?mode=photos");
                                 }
                             break;
@@ -213,6 +227,7 @@
                                     redirect("photos.php");
                                 } else {
                                     $photo = Photo::find_by_id($_GET['id']);
+                                    $session->message("The selected photo has been successfully updated.");
                             
                                     if(isset($_POST['update'])) {
                                         
@@ -226,8 +241,7 @@
                             
                                     }
                                 }
-
-                                include "inc/inc_edit_photo.php";
+                                redirect("index.php?mode=photos");
                             break;
 
                             // Logout
@@ -235,7 +249,7 @@
                                 $session->logout();
                                 redirect("login.php");
                             break;
-                            
+
                             default:
                                 // Include dashboard
                                 include "inc/inc_dashboard.php";
@@ -247,10 +261,6 @@
                 </div>
             </div>
         </div>
-        
-    </div>
 
-      
-</div>
  
 <?php include("inc/inc_footer.php"); ?>

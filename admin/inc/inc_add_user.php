@@ -1,67 +1,95 @@
-<div class="container-fluid">
-
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header card-header-primary">
-                <h4 class="card-title ">Add Users</h4>
-                <p class="card-category"> Fill out each field and ensure you select an admin level.</p>
-                <p class="bg-success">
-                    <?php echo $message?>
-                </p>
-            </div>
-                <div class="card-body">
-                    <form action="index.php?mode=add_user" method="post" enctype="multipart/form-data" autocomplete="off">
-                        <div>
-                            <div class="form-group form-file-upload form-file-multiple">
-                                <label for="user_image">User Image</label>
-                                <input type="file" multiple="" class="inputFileHidden" name="user_image">
-                                <div class="input-group">
-                                    <input type="text" class="form-control inputFileVisible">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-fab btn-round btn-primary">
-                                            <i class="material-icons">attach_file</i>
-                                        </button>
-                                    </span>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title ">Add Users</h4>
+            <p class="card-category"> Fill out each field and ensure you select an admin level.</p>
+            <p class="bg-success">
+                <?php echo $message?>
+            </p>
+        </div>
+            <div class="card-body" style="margin-top:25px;">
+                <form action="index.php?mode=add_user" method="post" enctype="multipart/form-data" autocomplete="off">
+                    <div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="first_name">First Name</label>
+                                    <input type="text" name="first_name" class="form-control" required>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" name="username" class="form-control" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="first_name">First Name</label>
-                                <input type="text" name="first_name" class="form-control"  required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="last_name">Last Name</label>
-                                <input type="text" name="last_name" class="form-control"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="user_level">User Level</label>
-                                <select class="form-control selectpicker" data-style="btn btn-link" name="user_level" required>
-                                    <option value=""></option>    
-                                    <option value="Administrator">Administrator</option>
-                                    <option value="Editor">Editor</option>
-                                    <option value="Subscriber">Subscriber</option>
-                                    <option value="Guest">Guest</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" class="form-control"  required>
-                            </div>
-
-                            <div class="form-group">
-                                <input type="submit" value="Add User" name="create" class="btn btn-primary pull-right" >
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="last_name">Last Name</label>
+                                    <input type="text" name="last_name" class="form-control" required>
+                                </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-        </div>
-    </div>
 
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" name="username" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="user_level">User level</label>
+                                    <select class="form-control" data-style="btn btn-link" name="user_level" required>
+                                        <option value="">Select User Level</option>    
+                                        <option value="Administrator">Administrator</option>
+                                        <option value="Editor">Editor</option>
+                                        <option value="Subscriber">Subscriber</option>
+                                        <option value="Guest">Guest</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" name="password" class="form-control" onkeyup='checkPassword();' required>
+                                    <span id="message"></span>
+                                </div>
+                                    <div class="form-group">
+                                        <label for="confirm_password">Confirm Password</label>
+                                        <input type="password" id="confirm_password" name="confirm_password" class="form-control" onkeyup='checkPassword();' required>
+                                    
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" onclick="showPassword()"> Show Passwords
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            
+                            <div class="col">
+                                <div class="form-group form-file-upload form-file-multiple">
+                                <label for="user_image">Profile Image</label>
+                                        <input type="file" multiple="" class="inputFileHidden" name="user_image">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control inputFileVisible">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-fab btn-round btn-primary">
+                                                        <i class="material-icons">attach_file</i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                </div>
+                            </div>
+                            <div class="col"></div>
+        
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Add User" name="create" class="btn btn-primary pull-right" >
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </div>
 </div>
+
+

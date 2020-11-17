@@ -10,10 +10,11 @@
     $photo = Photo::find_by_id($_GET["id"]);
     
     if(isset($_POST['submit'])) {
-        $author = trim($_POST['author']);
-        $body   = trim($_POST['body']);
+        $author     = trim($_POST['author']);
+        $body       = trim($_POST['body']);
+        $created    = date("Y-m-d H:i:s");
 
-        $new_comment = Comment::create_comment($photo->id, $author, $body);
+        $new_comment = Comment::create_comment($photo->id, $author, $body, $created);
 
         if($new_comment && $new_comment->save()) {
             redirect("photo.php?id={$photo->id}");
@@ -23,6 +24,7 @@
     } else {
         $author = "";
         $body = "";
+        $created = "";
     }
 
     $comments = Comment::find_the_comments($photo->id);

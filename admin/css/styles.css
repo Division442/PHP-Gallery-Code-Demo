@@ -3,3 +3,27 @@
  */
 
 /* Global Styles */
+.edit_icon, .delete_icon {
+    font-size: 12pt !important;
+}
+
+.modal_image {
+    height: auto;
+    max-width: 50%;
+}
+
+.form-group {
+    padding-bottom: 25px !important;
+}
+
+.footer_icons {
+    font-size: 12pt !important;
+}
+
+.input-group {
+    padding: 20px 0 0 0;
+}
+
+.file-upload-row {
+    padding: 40px 0 0 18px
+}

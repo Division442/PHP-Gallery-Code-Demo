@@ -51,11 +51,6 @@ $(document).ready(function() {
 
 })
 /* END: jQuery Code */
-// Edit photo sidebar
-$(".info-box-header").click(function() {
-    $(".inside").slideToggle("slow")
-    $("#toggle").toggleClass("glyphicon-menu-down glyphicon glyphicon-menu-up glyphicon");
-})
     
 tinymce.init({
     selector: '#mytextarea'
@@ -66,11 +61,25 @@ $(".delete_link").click(function() {
     return confirm("Are you sure you want to delete the selected item.");
 })
 
-function myFunction() {
-  var x = document.getElementById("myInput");
+function showPassword() {
+  var x = document.getElementById("password");
+  var y = document.getElementById("confirm_password");
   if (x.type === "password") {
     x.type = "text";
+    y.type = "text";
   } else {
     x.type = "password";
+    y.type = "password";
   }
+}
+
+var checkPassword = function() {
+    if (document.getElementById('password').value ==
+      document.getElementById('confirm_password').value) {
+      document.getElementById('message').style.color = 'green';
+      document.getElementById('message').innerHTML = 'Passwords match.';
+    } else {
+      document.getElementById('message').style.color = 'red';
+      document.getElementById('message').innerHTML = 'Passwords do not match.';
+    }
 }
