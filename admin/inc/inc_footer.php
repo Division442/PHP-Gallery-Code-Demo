@@ -1,31 +1,35 @@
-    <footer class="footer">
-        <div class="container-fluid">
-        <nav class="float-left">
-            <ul>
-                <li>
-                    <a href="https://division442.com">
-                    Division | 442
-                    </a>
-                </li>
-                <li>
-                    <a href="mailto://blake@division442.com"><i class="material-icons footer_icons">email</i> blake@division442.com</a>
-                </li>
-                <li>
-                    <a href="tel://415 238-8090"><i class="material-icons footer_icons">perm_phone_msg</i> 415 238-8090</a>
-                </li>
-            </ul>
-        </nav>
-            <div class="copyright float-right">
-                &copy;
-                <script>
-                document.write(new Date().getFullYear())
-                </script>,
-                <a href="https://division442.com" target="_blank">Blake Foss</a> Backend Developer PHP, MySQL, SQLServer, ColdFusion, Web Developer (Full Stack) and WordPress.
+                        <footer class="footer">
+                            <div class="container-fluid">
+                            <nav class="float-left">
+                                <ul>
+                                    <li>
+                                        <a href="https://division442.com">
+                                        Division | 442
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="mailto:blake@division442.com"><i class="material-icons footer_icons">email</i> blake@division442.com</a>
+                                    </li>
+                                    <li>
+                                        <a href="tel:415 238-8090"><i class="material-icons footer_icons">perm_phone_msg</i> 415 238-8090</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                                <div class="copyright float-right">
+                                    &copy;
+                                    <script>
+                                    document.write(new Date().getFullYear())
+                                    </script>,
+                                    <a href="https://division442.com" target="_blank">Blake Foss</a> Backend Developer PHP, MySQL, SQLServer, ColdFusion, Web and WordPress Developer.
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
     </div>
-</div>
+</div>    
 
 <!--   Core JS Files   -->
 <script src="js/core/jquery.min.js"></script>

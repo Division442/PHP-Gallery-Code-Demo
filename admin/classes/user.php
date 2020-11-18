@@ -95,10 +95,12 @@ class User extends Db_object {
 		    return false;
 
 		} else {
-            $this->user_image =  basename($file['name']);
-            $this->tmp_path = $file['tmp_name'];
-            $this->type     = $file['type'];
-            $this->size     = $file['size'];
+            $file_name_holder   = pathinfo(basename($file['name']));
+            $seoFileName        = Photo::seoUrl($file_name_holder['filename'] . '-' . uniqid() . '.' . $file_name_holder['extension']);
+            $this->user_image   =  $seoFileName;
+            $this->tmp_path     = $file['tmp_name'];
+            $this->type         = $file['type'];
+            $this->size         = $file['size'];
 		}
 
     }
@@ -138,7 +140,4 @@ class User extends Db_object {
 
 // End of user class - don't place functions here.    
 }
-
-
-
 ?>

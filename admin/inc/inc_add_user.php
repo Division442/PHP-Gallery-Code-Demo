@@ -67,7 +67,14 @@
                         <div class="row">
                             
                             <div class="col">
-                                <div class="form-group form-file-upload form-file-multiple">
+                            <div class="form-group">
+                                <label for="description">Bio</label>
+                                <textarea name="bio" id="mytextarea" cols="30" rows="10" class="form-control"></textarea>
+                            </div>
+                                
+                            </div>
+                            <div class="col">
+                            <div class="form-group form-file-upload form-file-multiple">
                                 <label for="user_image">Profile Image</label>
                                         <input type="file" multiple="" class="inputFileHidden" name="user_image">
                                             <div class="input-group">
@@ -80,7 +87,6 @@
                                             </div>
                                 </div>
                             </div>
-                            <div class="col"></div>
         
                         </div>
                         <div class="form-group">

@@ -100,6 +100,7 @@ class Photo extends Db_object {
 	public function delete_photo() {
 
 		if($this->delete()) {
+            // Hard delete from database doesn't happen so deleting the photos shouldn't happen. 
 			//$target_path = SITE_ROOT . DS . 'admin' . DS . $this->picture_path();
 
             //return unlink($target_path) ? true : false;
@@ -123,16 +124,10 @@ class Photo extends Db_object {
     }
     
     public static function seoUrl($string) {
-
-        //Lower case everything
         $string = strtolower($string);
-        //Make alphanumeric (removes all other characters)
         $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
-        //Clean up multiple dashes or whitespaces
         $string = preg_replace("/[\s-]+/", " ", $string);
-        //Convert whitespaces and underscore to dash
         $string = preg_replace("/[\s_]/", "-", $string);
-
         return $string;
     }
 

@@ -8,7 +8,7 @@
     $mode = $_GET["mode"] ?? "";
     
     // Clear message sessions to ensure it doesn't carry over into other pages
-    if(!isset($session->message)) {
+    if(isset($session->message)) {
         unset($_SESSION['message']);
     }
 ?>
@@ -109,6 +109,7 @@
                                         $user->first_name   = $_POST['first_name'];
                                         $user->last_name    = $_POST['last_name'];
                                         $user->user_level   = $_POST['user_level'];
+                                        $user->bio          = $_POST['bio'];
 
                                         if(!empty($_POST['password'])) {
                                             $user->password     = password_hash($_POST['username'], PASSWORD_DEFAULT);
@@ -150,6 +151,7 @@
                                         $user->user_level   = $_POST['user_level'];
                                         $user->password     = password_hash($_POST['username'], PASSWORD_DEFAULT);
                                         $user->created      = date("Y-m-d H:i:s");
+                                        $user->bio          = $_POST['bio'];
                             
                                         $user->set_file($_FILES['user_image']);
                                         $user->upload_photo();
@@ -224,7 +226,7 @@
                             // Edit photo
                             case "edit_photo":
                                 if(empty($_GET['id'])) {
-                                    redirect("photos.php");
+                                    redirect("index.php?mode=photos");
                                 } else {
                                     $photo = Photo::find_by_id($_GET['id']);
                                     $session->message("The selected photo has been successfully updated.");
@@ -241,13 +243,13 @@
                             
                                     }
                                 }
-                                redirect("index.php?mode=photos");
+                                include "inc/inc_edit_photo.php";
                             break;
 
                             // Logout
                             case "logout":
                                 $session->logout();
-                                redirect("login.php");
+                                redirect("../index.php");
                             break;
 
                             default:

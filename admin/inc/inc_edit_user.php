@@ -28,7 +28,10 @@
                     <label for="last name">Last Name</label>
                     <input type="text" name="last_name" class="form-control" value="<?php echo $user->last_name; ?>" required>
                   </div>
-
+                    <div class="form-group">
+                        <label for="description">Bio</label>
+                        <textarea name="bio" id="mytextarea" cols="30" rows="10" class="form-control"><?php echo $user->bio; ?></textarea>
+                    </div>
                   <div class="form-group">
                     <label for="user_level">User Level</label>
                     <select class="form-control" data-style="btn btn-link" name="user_level" required>

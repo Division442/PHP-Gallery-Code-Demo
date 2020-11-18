@@ -5,9 +5,6 @@
             <div class="card-header card-header-primary">
                 <h4 class="card-title ">Upload Image</h4>
                 <p class="card-category"> <?php echo $message ?></p>
-                <p class="bg-success">
-                    <?php echo $message?>
-                </p>
             </div>
                 <div class="card-body">
                 <form action="index.php?mode=upload_photo" method="post" enctype="multipart/form-data" class="dropzone">
@@ -26,7 +23,7 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label><br>
-                        <textarea name="description" id="mytextarea" cols="30" rows="10" class="form-control"></textarea>
+                        <textarea name="description" cols="30" rows="10" class="form-control"></textarea>
                     </div>
                 </form>
                 </div>
