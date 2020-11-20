@@ -28,25 +28,25 @@
     <?php endforeach; ?>
 </div>
 <!-- Pagination -->
-<ul class="pagination justify-content-end">
+<ul class="pagination justify-content-end" style="margin: 0 0 100px 0;">
 
     <?php 
 
         if($paginate->has_previous()) {
-            echo "<li class='page-item'><a href='index.php?page={$paginate->previous()}'>Previous</a></li>";
+            echo "<li class='page-item'><a href='index.php?page={$paginate->previous()}'>Previous </a></li>";
         }
         
         for($i = 1; $i <= $paginate->page_total() ; $i++) {
             if($i == $paginate->current_page) {
-                echo "<li class='page-item active'><a href='index.php?page={$i}'>{$i}</a></li>";
+                echo "<li class='page-item active'> <a href='index.php?page={$i}'>{$i}</a> </li>";
             } else {
-                echo "<li class='page-item'><a href='index.php?page={$i}'>{$i}</a></li>";
+                echo "<li class='page-item'> <a href='index.php?page={$i}'>{$i}</a> </li>";
             }
         }
 
         if($paginate->page_total() > 1) {
             if($paginate->has_next()) {
-                echo "<li class='page-item'><a href='index.php?page={$paginate->next()}'>Next</a></li>";
+                echo "<li class='page-item'><a href='index.php?page={$paginate->next()}'> Next</a></li>";
             }
         }
 
