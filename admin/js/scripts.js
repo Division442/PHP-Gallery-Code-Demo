@@ -73,6 +73,15 @@ function showPassword() {
   }
 }
 
+function showLoginPassword() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+
 var checkPassword = function() {
     if (document.getElementById('password').value ==
       document.getElementById('confirm_password').value) {

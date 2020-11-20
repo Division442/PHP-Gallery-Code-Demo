@@ -20,15 +20,22 @@ class Session {
 
     public function login($user) {
         if($user) {
-            $this->id = $_SESSION['id'] = $user->id;
-            $this->name = $_SESSION['name'] = $user->first_name . " " . $user->last_name;
-            $this->signed_in = true;
+            $this->id           = $_SESSION['id'] = $user->id;
+            $this->name         = $_SESSION['name'] = $user->first_name . " " . $user->last_name;
+            $this->admin_level  = $_SESSION['admin_level'] = $user->admin_level;
+            $this->signed_in    = true;
         }
     }
 
     public function logout() {
         
-        unset($_SESSION['id']);
+        // unset($_SESSION['id']);
+        // unset($_SESSION['count']);
+        // unset($_SESSION['admin_level']);
+        // unset($_SESSION['admin_level']);
+
+        session_destroy();
+        
         unset($user->name);
         unset($user->id);
         $this->signed_in = false;

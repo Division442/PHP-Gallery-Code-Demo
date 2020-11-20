@@ -13,7 +13,14 @@
           <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="admin">Admin</a>
+        <?php 
+            if(!empty($_SESSION['id'])) {
+                echo "<a class='nav-link' href='admin'>Admin</a>";
+            } else {
+                echo "<a class='nav-link' href='admin/login.php'>Login</a>";
+            }
+        ?>
+        
         </li>
       </ul>
     </div>

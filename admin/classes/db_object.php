@@ -20,6 +20,15 @@ class Db_object {
         return !empty($the_result_array) ? array_shift($the_result_array) : false;
 
     }
+
+    public static function find_by_user_id($id) {
+
+        global $database;
+
+        $the_result_array = static::find_by_query("SELECT * FROM " . static::$db_table . " WHERE user_id = {$id}");
+        return !empty($the_result_array) ? array_shift($the_result_array) : false;
+
+    }
     
     public static function find_by_query($sql) {
 
@@ -103,6 +112,19 @@ class Db_object {
         return (mysqli_affected_rows($database->connection) == 1) ? true : false;
     }
 
+    public function delete_user_content($user_id) {
+        global $database;
+
+        // Can be used for any table using the user_id value to track
+        $sql = "UPDATE " .static::$db_table . " SET deleted = " . "'" . date('Y-m-d H:i:s') . "'";
+        $sql .= " WHERE user_id = " . $database->escape_string($user_id);
+        // TODO: Need to loop through images and pull ID's to delete comments associated with the deleted account
+
+        $database->query($sql);
+
+        return (mysqli_affected_rows($database->connection) == 1) ? true : false;
+    }
+
     protected function properties() {
         //return get_object_vars($this);
 
@@ -131,6 +153,14 @@ class Db_object {
     public static function count_all() {
         global $database;
         $sql = "SELECT COUNT(*) FROM " . static::$db_table . " " . "where deleted IS NULL";
+        $result_set = $database->query($sql);
+        $row = mysqli_fetch_array($result_set);
+        return array_shift($row);
+    }
+
+    public static function count_all_user_photos($user_id) {
+        global $database;
+        $sql = "SELECT COUNT(*) FROM " . static::$db_table . " " . "where deleted IS NULL AND user_id = $user_id";
         $result_set = $database->query($sql);
         $row = mysqli_fetch_array($result_set);
         return array_shift($row);

@@ -14,11 +14,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/apple-icon.png">
+    <link rel="icon" type="image/png" href="images/favicon.png">
   
 
-    <title>Gallery Admin Code Demo</title>
+    <title>Gallery PHP Code Demo</title>
     <link href="css/material-dashboard.css" rel="stylesheet">
     <link href="css/dropzone.css" rel="stylesheet">
     <!-- Custom styles specific to app -->

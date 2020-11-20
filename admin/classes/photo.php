@@ -30,7 +30,6 @@ class Photo extends Db_object {
                             UPLOAD_ERR_CANT_WRITE   => "Failed to write file to disk.",
                             UPLOAD_ERR_EXTENSION    => "A PHP extension stopped the file upload.");
 
-    // This is passing $_FILES['uploaded_file'] as an argument.
     public function set_file($file) { 
 
 		if(empty($file) || !$file || !is_array($file)) {
@@ -45,7 +44,7 @@ class Photo extends Db_object {
 		} else {
 
             $file_name_holder = pathinfo(basename($file['name']));
-            $seoFileName = $this->seoUrl($file_name_holder['filename'] . '-' . uniqid() . '.' . $file_name_holder['extension']);
+            $seoFileName = $this->seoUrl($file_name_holder["filename"] . "-" . uniqid() . "." . $file_name_holder["extension"]);
 
             $this->filename = $seoFileName;
             $this->original_file_name = basename($file['name']);
@@ -125,7 +124,7 @@ class Photo extends Db_object {
     
     public static function seoUrl($string) {
         $string = strtolower($string);
-        $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+        //$string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
         $string = preg_replace("/[\s-]+/", " ", $string);
         $string = preg_replace("/[\s_]/", "-", $string);
         return $string;

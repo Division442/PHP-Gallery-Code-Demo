@@ -13,6 +13,9 @@
     }
 ?>
 
+
+
+
 <div class="wrapper ">
 
     <?php include("inc/inc_side_nav.php"); ?>
@@ -101,7 +104,7 @@
                                 }
                                     
                                 $user = User::find_by_id($_GET['id']);
-                                    
+
                                 if(isset($_POST['update'])) {
                                     
                                     if($user) {
@@ -122,7 +125,7 @@
                                             redirect("index.php?mode=users");
                                 
                                         } else {
-                                        
+                                            
                                             $user->set_file($_FILES['user_image']);
                                             $user->upload_photo();
                                             $session->message("The user has been updated.");
@@ -134,7 +137,6 @@
                                 }
                                 
                                 $photos = Photo::find_all();
-                                include "inc/inc_photo_modal.php";
                                 include "inc/inc_edit_user.php";
                             break;
 
@@ -149,7 +151,7 @@
                                         $user->first_name   = $_POST['first_name'];
                                         $user->last_name    = $_POST['last_name'];
                                         $user->user_level   = $_POST['user_level'];
-                                        $user->password     = password_hash($_POST['username'], PASSWORD_DEFAULT);
+                                        $user->password     = password_hash($_POST['password'], PASSWORD_DEFAULT);
                                         $user->created      = date("Y-m-d H:i:s");
                                         $user->bio          = $_POST['bio'];
                             
@@ -170,12 +172,15 @@
                                     redirect('index.php?mode=users');
                                 } else {
                                     $user = User::find_by_id($_GET['id']);
+                                    $photo = Photo::find_by_user_id($_GET['id']);
                             
                                     if($user) {
                                         $user->delete_user_photo();
-                                        $session->message("The user has been deleted.");
+                                        $photo->delete_user_content($_GET['id']);
+                                        $session->message("User" . " " . $user->first_name . " " . $user->last_name . " " . "has been deleted.");
                                         redirect("index.php?mode=users");
                                     } else {
+                                        $session->message("There was an error deleting the selected user," . " " . $user->first_name . " " . $user->last_name);
                                         redirect("index.php?mode=users");
                                     }
                                 }
@@ -195,7 +200,7 @@
                                     $photo->created     = date("Y-m-d H:i:s");
                             
                                     if($photo->save()) {
-                                        $session->message("Photo uploaded successfully.");
+                                        $session->message("Photo/s uploaded successfully.");
                                     } else {
                                         $message = join("<br>", $photo->errors);
                                         
@@ -249,7 +254,7 @@
                             // Logout
                             case "logout":
                                 $session->logout();
-                                redirect("../index.php");
+                                redirect("login.php");
                             break;
 
                             default:
@@ -262,7 +267,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
- 
+        </div> 
+         
 <?php include("inc/inc_footer.php"); ?>

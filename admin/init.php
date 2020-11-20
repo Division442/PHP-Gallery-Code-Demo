@@ -6,8 +6,6 @@ defined("SITE_ROOT") ? null : define("SITE_ROOT", DS . "Applications" . DS . "MA
 defined("INCLUDES_PATH") ? null : define("INCLUDES_PATH", SITE_ROOT.DS."admin".DS."inc");
 defined("CLASSES_PATH") ? null : define("CLASSES_PATH", SITE_ROOT.DS."admin".DS."classes");
 
-
-// TODO: Move all classes into their own folder and update the paths.
 require_once(CLASSES_PATH.DS."functions.php");
 require_once(CLASSES_PATH.DS."db_object.php");
 require_once(CLASSES_PATH.DS."new_config.php");

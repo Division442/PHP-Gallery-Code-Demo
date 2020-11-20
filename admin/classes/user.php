@@ -41,14 +41,14 @@ class User extends Db_object {
 
         if (password_verify($user_password, $encrypted_password)) {
             $password = $encrypted_password;
-            $sql = "SELECT * FROM " . self::$db_table . " " . " WHERE username ='{$username}' AND password='{$password}' LIMIT 1";
+            $sql = "SELECT * FROM " . self::$db_table . " " . " WHERE username ='{$username}' AND password='{$password}' AND deleted is NULL LIMIT 1";
             $the_result_array = self::find_by_query($sql);
             return !empty($the_result_array) ? array_shift($the_result_array) : false;
         }
     }
 
     private static function get_encrypted_password($username) {
-        $sql_password = "SELECT password FROM " . self::$db_table . " " . " WHERE username ='{$username}' AND deleted is NULL";
+        $sql_password = "SELECT password FROM " . self::$db_table . " " . " WHERE username ='{$username}' AND deleted is NULL LIMIT 1";
         $the_password_result_array = self::find_by_query($sql_password);
         return !empty($the_password_result_array) ? array_shift($the_password_result_array) : false;
     }
@@ -74,9 +74,10 @@ class User extends Db_object {
     public function delete_user_photo() {
 
 		if($this->delete()) {
-			$target_path = SITE_ROOT . DS . 'admin' . DS . $this->image_path_and_placeholder();
-
-			return unlink($target_path) ? true : false;
+            // TODO: Commented out until I convert the call to this function to another function that does not delete the photo.
+			// $target_path = SITE_ROOT . DS . 'admin' . DS . $this->image_path_and_placeholder();
+            // return unlink($target_path) ? true : false;
+            return true;
 			
 		} else {
 			return false;
@@ -89,7 +90,7 @@ class User extends Db_object {
 		    $this->errors[] = "There was no file uploaded here";
 		    return false;
 
-		}   elseif($file['error'] !=0) {
+		} elseif($file['error'] !=0) {
 
 		    $this->errors[] = $this->upload_errors_array[$file['error']];
 		    return false;
@@ -97,7 +98,7 @@ class User extends Db_object {
 		} else {
             $file_name_holder   = pathinfo(basename($file['name']));
             $seoFileName        = Photo::seoUrl($file_name_holder['filename'] . '-' . uniqid() . '.' . $file_name_holder['extension']);
-            $this->user_image   =  $seoFileName;
+            $this->user_image   = $seoFileName;
             $this->tmp_path     = $file['tmp_name'];
             $this->type         = $file['type'];
             $this->size         = $file['size'];

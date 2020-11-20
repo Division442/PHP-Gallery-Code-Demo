@@ -61,31 +61,33 @@
                         </div>
                     </div>
 
-                  <div class="form-group">
-                    <input type="submit" value="Edit User" name="update" class="btn btn-primary pull-left" >
-                    <a id="user-id" href="index.php?mode=delete_user?id=<?php echo $user->id; ?>" class="btn btn-primary pull-right">Delete</a>
-                  </div>
+                  
                 </div>
-              </form>
+              
             </div>
             <div class="col-md-6 user_image_box">
                 
                 <img class="img-fluid img-rounded" src="<?php echo $user->image_path_and_placeholder(); ?>" alt="<?php echo $user->username; ?>">
                 <p style="margin: 30px 0 0 0;"></p>
-
                 <div class="form-group form-file-upload form-file-multiple">
-                    <label for="user_image">Upload New User Image</label>
-                    <input type="file" multiple="" class="inputFileHidden" name="user_image">
-                        <div class="input-group">
-                            <input type="text" class="form-control inputFileVisible">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-fab btn-round btn-primary">
-                                    <i class="material-icons">attach_file</i>
-                                </button>
-                            </span>
-                        </div>
+                    <label for="user_image">Profile Image</label>
+                            <input type="file" multiple="" class="inputFileHidden" name="user_image">
+                                <div class="input-group">
+                                    <input type="text" class="form-control inputFileVisible">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-fab btn-round btn-primary">
+                                            <i class="material-icons">attach_file</i>
+                                        </button>
+                                    </span>
+                                </div>
+                    </div><div class="form-group">
+                    <a id="user-id" href="index.php?mode=delete_user?id=<?php echo $user->id; ?>" class="btn btn-primary pull-left">Delete</a>
+                    <input type="submit" value="Edit User" name="update" class="btn btn-primary pull-right" >
+                  </div>
                 </div>
+                
             </div>
+            </form>
           </div>
         </div>
     </div>

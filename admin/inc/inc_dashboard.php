@@ -27,7 +27,7 @@
                             <i class="material-icons">monochrome_photos</i>
                         </div>
                         <p class="card-category">Photos</p>
-                        <h3 class="card-title"><?php echo Photo::count_all()?>
+                        <h3 class="card-title"><?php echo Photo::count_all_user_photos($_SESSION['id'])?>
                             <small>in total</small>
                         </h3>
                     </div>
