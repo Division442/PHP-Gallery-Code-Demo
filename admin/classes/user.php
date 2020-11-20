@@ -31,12 +31,16 @@ class User extends Db_object {
         $username = $database->escape_string($username);
         $user_password = $database->escape_string($password);
 
-        // First, pull password from database
+        // First, pull password from database - need to add an IF statement to toggle onlu if a result is found
         $set_encrypted_password = self::get_encrypted_password($username);
-        foreach($set_encrypted_password as $user_query) {
-            if($user_query) {
-                $encrypted_password = $user_query;
+        if(!empty($set_encrypted_password)) {
+            foreach($set_encrypted_password as $user_query) {
+                if($user_query) {
+                    $encrypted_password = $user_query;
+                }
             }
+        } else {
+            $encrypted_password = "";
         }
 
         if (password_verify($user_password, $encrypted_password)) {

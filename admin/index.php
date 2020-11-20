@@ -8,9 +8,9 @@
     $mode = $_GET["mode"] ?? "";
     
     // Clear message sessions to ensure it doesn't carry over into other pages
-    if(isset($session->message)) {
+    //if(isset($session->message)) {
         unset($_SESSION['message']);
-    }
+    //}
 ?>
 
 
@@ -234,7 +234,6 @@
                                     redirect("index.php?mode=photos");
                                 } else {
                                     $photo = Photo::find_by_id($_GET['id']);
-                                    $session->message("The selected photo has been successfully updated.");
                             
                                     if(isset($_POST['update'])) {
                                         
@@ -244,6 +243,7 @@
                                             $photo->alt_text = $_POST['alt_text'];
                                             $photo->description = $_POST['description'];
                                             $photo->save();
+                                            $session->message("The selected photo has been successfully updated.");
                                         }
                             
                                     }
