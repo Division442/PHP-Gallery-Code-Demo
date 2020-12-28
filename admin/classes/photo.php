@@ -1,8 +1,36 @@
 <?php 
 
+/**
+ * The photo class manages
+ * - Uploading new photos
+ * - Editing existing photos
+ * - Setting photo directory paths to display
+ *
+ * @package     Photo management
+ * @author      Blake Foss <blake@division442.com>
+ * @version     1.0
+ * @link        https://division442.com/gallery-demo 
+ */
+
 class Photo extends Db_object {
 
+
+    /**
+     * Default config for this object.
+     *
+     * - `db_table` name of database table
+     * - `db_table_fields` table fields the application communicates with
+     * - `db_table_id` the primary key ID field for the table
+     * 
+     * @todo convert SQL queries to pass $db_table_id through to database related query methods. Currently table ID's are named ID, lacks flexibility of specific primary key ID's.
+     * 
+     * @var string public variables for the database table fields
+     * @var array create array with file related error messages (used to notify user of file upload errors)
+     * 
+     */
+
     protected static $db_table = "photos";
+    protected static $db_table_id = "photo_id";
     protected static $db_table_fields = array('title', 'description', 'filename', 'type', 'size', 'caption', 'alt_text', 'user_id', 'created', 'original_file_name');
 
     public $id;
@@ -30,6 +58,16 @@ class Photo extends Db_object {
                             UPLOAD_ERR_CANT_WRITE   => "Failed to write file to disk.",
                             UPLOAD_ERR_EXTENSION    => "A PHP extension stopped the file upload.");
 
+
+    /**
+     * Check that an image has been passed from the user creation or update methods. 
+     * 
+     * If there are no errors the file name is modified with the addition of a uniqid to ensure file is not overwritten.
+     * 
+     * @param mixed $file/s that are selected to upload for user image
+     * @return boolean|string
+     * 
+     */
     public function set_file($file) { 
 
 		if(empty($file) || !$file || !is_array($file)) {
@@ -55,7 +93,14 @@ class Photo extends Db_object {
 
     }
 
-
+    /**
+     * Check that an image has been passed from the user creation or update methods. 
+     * 
+     * If there are no errors the file name is modified with the addition of a uniqid to ensure file is not overwritten.
+     * 
+     * @return boolean true if photo upload successful, false if there is an error
+     * 
+     */
 	public function save() {
 
 		if($this->id) {
@@ -92,10 +137,22 @@ class Photo extends Db_object {
 
     }
     
+    /**
+     * Sets the image file path.
+     * 
+     * @return string
+     */
     public function picture_path() {
         return $this->upload_directory.DS.$this->filename;
 	}
-	
+    
+    /**
+     * Legacy function that hard deleted a photo.
+     * 
+     * @todo delete method and refactor code that references
+     * 
+     * @return boolean
+     */
 	public function delete_photo() {
 
 		if($this->delete()) {
@@ -110,6 +167,13 @@ class Photo extends Db_object {
 		}
     }
     
+    /**
+     * Legacy function that displayed photo data on ajax driver modal when viewing image. 
+     * 
+     * @todo delete method and refactor code that references
+     * 
+     * @return string
+     */
     public static function display_sidebar_data($photo_id) {
 
 		$photo = Photo::find_by_id($photo_id);
@@ -122,9 +186,14 @@ class Photo extends Db_object {
 
     }
     
+    /**
+     * Converts filename into SEO friendly file name.
+     * 
+     * @param string $string 
+     * @return string
+     */
     public static function seoUrl($string) {
         $string = strtolower($string);
-        //$string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
         $string = preg_replace("/[\s-]+/", " ", $string);
         $string = preg_replace("/[\s_]/", "-", $string);
         return $string;

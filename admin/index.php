@@ -115,7 +115,7 @@
                                         $user->bio          = $_POST['bio'];
 
                                         if(!empty($_POST['password'])) {
-                                            $user->password     = password_hash($_POST['username'], PASSWORD_DEFAULT);
+                                            $user->password     = password_hash($_POST['password'], PASSWORD_DEFAULT);
                                         }
                                         
                                         if(empty($_FILES['user_image'])) {
