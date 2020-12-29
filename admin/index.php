@@ -7,6 +7,9 @@
 
     $mode = $_GET["mode"] ?? "";
     
+    /**
+     * @todo configfure a better way to clear message sessions, move into a method within function classes. Expand mmethod to delete a specific sesssion variable.
+     */ 
     // Clear message sessions to ensure it doesn't carry over into other pages
     //if(isset($session->message)) {
         unset($_SESSION['message']);
