@@ -13,10 +13,20 @@
  */
 
 // Local development settings
+// defined("DS") ? null : define("DS", DIRECTORY_SEPARATOR);
+// defined("SITE_ROOT") ? null : define("SITE_ROOT", DS . "Applications" . DS . "MAMP"  . DS .  "htdocs"  . DS .  "udemy-php-oop"  . DS .  "gallery" );
+// defined("INCLUDES_PATH") ? null : define("INCLUDES_PATH", SITE_ROOT.DS."admin".DS."inc");
+// defined("CLASSES_PATH") ? null : define("CLASSES_PATH", SITE_ROOT.DS."admin".DS."classes");
+
+// Docker container development settings
 defined("DS") ? null : define("DS", DIRECTORY_SEPARATOR);
-defined("SITE_ROOT") ? null : define("SITE_ROOT", DS . "Applications" . DS . "MAMP"  . DS .  "htdocs"  . DS .  "udemy-php-oop"  . DS .  "gallery" );
+defined("SITE_ROOT") ? null : define("SITE_ROOT", DS . "var" . DS . "www"  . DS .  "html");
 defined("INCLUDES_PATH") ? null : define("INCLUDES_PATH", SITE_ROOT.DS."admin".DS."inc");
 defined("CLASSES_PATH") ? null : define("CLASSES_PATH", SITE_ROOT.DS."admin".DS."classes");
+
+
+
+
 
 // Production demo settings
 ///home/divisio3/public_html/gallery_demo

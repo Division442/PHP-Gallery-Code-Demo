@@ -1,11 +1,13 @@
+use php_gallery;
+
 -- phpMyAdmin SQL Dump
--- version 4.9.3
+-- version 4.9.7
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Dec 29, 2020 at 10:09 PM
--- Server version: 5.7.26
--- PHP Version: 7.4.2
+-- Generation Time: Feb 04, 2021 at 09:44 PM
+-- Server version: 5.7.32
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";

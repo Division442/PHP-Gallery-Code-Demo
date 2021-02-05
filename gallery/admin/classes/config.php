@@ -6,14 +6,14 @@
  * @package     Database management
  * @author      Blake Foss <blake@division442.com>
  * @version     1.0
- * @link        https://division442.com/gallery-demo 
+ * @link        https://division442.com/gallery-demo
  */
 
 // Database constants
-define('DB_HOST','localhost');
+define('DB_HOST','php-gallery-mysql');
 define('DB_USER','root');
 define('DB_PASS','root');
-define('DB_NAME','php_course_gallery');
+define('DB_NAME','php_gallery');
 
 // Production demo database settings
 // define('DB_HOST','localhost');
