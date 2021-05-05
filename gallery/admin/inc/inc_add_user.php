@@ -32,6 +32,12 @@
                                     <label for="last_name">Last Name</label>
                                     <input type="text" id="last_name" name="last_name" class="form-control" required>
                                 </div>
+                          
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" name="email" id="email" class="form-control" required>
+                                </div>
+                   
                                 <div class="form-group">
                                     <label for="user_level">User level</label>
                                     <select class="form-control" id="user_level" data-style="btn btn-link" name="user_level" required>

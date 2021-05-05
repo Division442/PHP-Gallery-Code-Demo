@@ -16,9 +16,6 @@
     //}
 ?>
 
-
-
-
 <div class="wrapper ">
 
     <?php include("inc/inc_side_nav.php"); ?>
@@ -115,6 +112,7 @@
                                         $user->first_name   = $_POST['first_name'];
                                         $user->last_name    = $_POST['last_name'];
                                         $user->user_level   = $_POST['user_level'];
+                                        $user->email        = $_POST['email'];
                                         $user->bio          = $_POST['bio'];
 
                                         if(!empty($_POST['password'])) {
@@ -154,6 +152,7 @@
                                         $user->first_name   = $_POST['first_name'];
                                         $user->last_name    = $_POST['last_name'];
                                         $user->user_level   = $_POST['user_level'];
+                                        $user->email        = $_POST['email'];
                                         $user->password     = password_hash($_POST['password'], PASSWORD_DEFAULT);
                                         $user->created      = date("Y-m-d H:i:s");
                                         $user->bio          = $_POST['bio'];

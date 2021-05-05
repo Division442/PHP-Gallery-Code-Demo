@@ -28,10 +28,10 @@
                     <label for="last name">Last Name</label>
                     <input type="text" name="last_name" class="form-control" value="<?php echo $user->last_name; ?>" required>
                   </div>
-                    <div class="form-group">
-                        <label for="description">Bio</label>
-                        <textarea name="bio" id="mytextarea" cols="30" rows="10" class="form-control"><?php echo $user->bio; ?></textarea>
-                    </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" class="form-control" value="<?php echo $user->email; ?>" required>
+                  </div>
                   <div class="form-group">
                     <label for="user_level">User Level</label>
                     <select class="form-control" data-style="btn btn-link" name="user_level" required>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="form-group">
                         <label for="password">Confirm Updated Password</label>
-                        <input type="password" id="confirm_password" name="confirm_password" class="form-control" onkeyup='checkPassword();'>
+                        <input type="password" id="confirm_password" name="confirm_password" class="form-control" onkeyup='checkPass word();'>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" onclick="showPassword()"> Show Passwords
@@ -59,6 +59,10 @@
                                 </span>
                             </label>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Bio</label>
+                        <textarea name="bio" id="mytextarea" cols="30" rows="10" class="form-control"><?php echo $user->bio; ?></textarea>
                     </div>
 
                   

@@ -8,7 +8,6 @@
         <a href="index.php" class="simple-text logo-normal">Gallery Code Demo</a>
     </div>
 
-    <!-- Theme is overiding the jQuery toggle class - this is a workaround and pre jquery solution -->
     <div class="sidebar-wrapper">
         <ul class="nav">
             <li class="nav-item<?php if ($_GET["mode"] == "") { echo " active"; } ?>">

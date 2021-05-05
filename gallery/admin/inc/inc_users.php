@@ -21,10 +21,11 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th width="300px"><small><a href="index.php?mode=add_user" class="btn btn-primary">Add User</a></small></th>
+                                    <th width="150px"><small><a href="index.php?mode=add_user" class="btn btn-primary">Add User</a></small></th>
                                     <th>Username</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
+                                    <th>Email</th>
                                     <th>User Level</th>
                                     <th></th>
                                 </tr>
@@ -33,11 +34,10 @@
                                 <?php foreach($users as $user) : ?>
                                 <tr>
                                     <td><img class="img-fluid img-rounded" src="<?php echo $user->image_path_and_placeholder(); ?>" alt="User image for <?php echo $user->username; ?>"></td>
-                                    <td>
-                                        <?php echo $user->username; ?>
-                                    </td>
+                                    <td><?php echo $user->username; ?></td>
                                     <td><?php echo $user->first_name; ?></td>
                                     <td><?php echo $user->last_name; ?></td>
+                                    <td><?php echo $user->email; ?></td>
                                     <td><?php echo $user->user_level; ?></td>
                                     <td>
                                         <div class="pictures_link">

@@ -27,7 +27,7 @@ class User extends Db_object {
      */
     protected static $db_table = "users";
     protected static $db_table_id = "user_id";
-    protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name', 'user_level', 'user_image', 'created', 'description', 'bio');
+    protected static $db_table_fields = array('username', 'password', 'first_name', 'last_name', 'user_level', 'user_image', 'created', 'description', 'bio', 'email');
 
     public $id;
     public $username;
@@ -40,6 +40,7 @@ class User extends Db_object {
     public $decrypted_password;
     public $description;
     public $bio;
+    public $email;
     private static $upload_directory = "images";
     private static $image_placeholder = "https://via.placeholder.com/150";
 
